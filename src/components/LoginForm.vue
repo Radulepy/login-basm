@@ -15,18 +15,24 @@
     <button type="button" class="btn btn-success w-100" @click="this.login()">
       Login
     </button>
-    <button type="button" class="btn btn-warning w-100" @click="this.checkLogin()">
+    <button
+      type="button"
+      class="btn btn-warning w-100"
+      @click="this.checkLogin()"
+    >
       Check Login
     </button>
     <button type="button" class="btn btn-danger w-100" @click="this.logout()">
       Logout
     </button>
 
-        <button type="button" class="btn btn-secondary mt-5 w-100" @click="this.createCookie()">
+    <button
+      type="button"
+      class="btn btn-secondary mt-5 w-100"
+      @click="this.createCookie()"
+    >
       CREATE
     </button>
-
-    
 
     <router-link :to="{ name: 'Page2' }"> page2 </router-link>
   </form>
@@ -34,7 +40,15 @@
 
 <script>
 import axios from "axios";
+
 axios.defaults.withCredentials = true;
+
+
+
+
+
+
+
 export default {
   data() {
     return {
@@ -55,10 +69,8 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response.status);
           console.log(response);
-          console.log(response.data);
-          console.log(this.getCookie("PHPSESSID"));
+        //   console.log(this.getCookie("PHPSESSID"));
         })
         .catch((error) => {
           console.log("ERROR" + error);
@@ -72,13 +84,14 @@ export default {
     },
 
     logout() {
-        console.log('logged out');
+      console.log("logged out");
       //TODO: WHEN LOGOUT:
       document.cookie =
         "PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     },
 
-    checkLogin() { // TODO: de apelat mereu inainte sa incarca contentul de pe server
+    checkLogin() {
+      // TODO: de apelat mereu inainte sa incarca contentul de pe server
       const data = new URLSearchParams();
       data.append("PHPSESSID", this.getCookie("PHPSESSID")); // send token back
 
@@ -95,20 +108,21 @@ export default {
           if (response.data === "SESSION NOT OK!") {
             document.cookie =
               "PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-              console.log('stergere');
+            console.log("stergere");
           }
         })
         .catch((error) => {
-            if (error.response.status === 403) { //log out force
+          if (error.response.status === 403) {
+            //log out force
             document.cookie =
               "PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-              console.log('NOT AUTHORIZED!');
+            console.log("NOT AUTHORIZED!");
           }
         });
     },
-    createCookie(){
-        document.cookie = "PHPSESSID=John Doe";
-    }
+    createCookie() {
+      document.cookie = "PHPSESSID=John Doe";
+    },
   },
 };
 </script>
