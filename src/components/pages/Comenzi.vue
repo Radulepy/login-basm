@@ -1,12 +1,13 @@
 <template>
-  <router-view></router-view>
+  comenzi 
 </template>
 
 <script>
 export default {
-  name: "App",
-};
+
+}
 </script>
 
 <style>
+
 </style>
